@@ -142,7 +142,7 @@ function checkPeerDisconnect(event, peerUuid) {
 
 function updateLayout() {
   console.log('_________ ______>')
-  console.log('updating layout';
+  console.log('updating layout');
   // update CSS grid based on number of diplayed videos
   var rowHeight = '98vh';
   var colWidth = '98vw';
