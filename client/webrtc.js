@@ -16,17 +16,21 @@ var peerConnectionConfig = {
 function start() {
   localUuid = createUUID();
 
+  console.log('_________ localUuid ______>')
+  console.log(localUuid);
+
   // check if "&displayName=xxx" is appended to URL, otherwise alert user to populate
   var urlParams = new URLSearchParams(window.location.search);
   localDisplayName = urlParams.get('displayName') || prompt('Enter your name', '');
   document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
 
+
   // specify no audio for user media
   var constraints = {
     video: {
-      width: {max: 320},
-      height: {max: 240},
-      frameRate: {max: 30},
+      width: { max: 320 },
+      height: { max: 240 },
+      frameRate: { max: 30 },
     },
     audio: false,
   };
@@ -137,6 +141,8 @@ function checkPeerDisconnect(event, peerUuid) {
 }
 
 function updateLayout() {
+  console.log('_________ ______>')
+  console.log('updating layout';
   // update CSS grid based on number of diplayed videos
   var rowHeight = '98vh';
   var colWidth = '98vw';
