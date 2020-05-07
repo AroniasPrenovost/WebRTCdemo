@@ -46,7 +46,7 @@ function start() {
       // set up websocket and message all existing clients
       .then(() => {
        
-        serverConnection = new WebSocket('wss://' + aroniasprenovost.github.io/WebRTCdemo/client + ':' + WS_PORT);
+        serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
         serverConnection.onmessage = gotMessageFromServer;
         serverConnection.onopen = event => {
           serverConnection.send(JSON.stringify({ 'displayName': localDisplayName, 'uuid': localUuid, 'dest': 'all' }));
