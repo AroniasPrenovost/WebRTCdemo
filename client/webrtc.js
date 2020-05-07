@@ -48,7 +48,7 @@ function start() {
        
         console.log(window.location.hostname); 
       
-        serverConnection = new WebSocket('wss://' + window.location.hostname + 'WebRTCdemo/client/:' + WS_PORT);
+        serverConnection = new WebSocket('wss://' + window.location.hostname + '/WebRTCdemo/client/:' + WS_PORT);
      
         console.log(serverConnection); 
       
