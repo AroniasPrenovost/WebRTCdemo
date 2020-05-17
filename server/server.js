@@ -8,6 +8,11 @@ const WebSocket = require('ws');
 // based on examples at https://www.npmjs.com/package/ws 
 const WebSocketServer = WebSocket.Server;
 
+// ws = WebsocketServer(host='0.0.0.0', port=9001)
+// console.log('websocketserver:')
+console.log(WebSocket);
+// console.log(WebSocketServer);
+
 // Yes, TLS is required
 const serverConfig = {
   key: fs.readFileSync('key.pem'),
@@ -21,7 +26,7 @@ const handleRequest = function (request, response) {
   // Render the single client html file for any request the HTTP server receives
   console.log('request received: ' + request.url);
 
- if (request.url === '/webrtc.js') {
+  if (request.url === '/webrtc.js') {
     response.writeHead(200, { 'Content-Type': 'application/javascript' });
     response.end(fs.readFileSync('client/webrtc.js'));
   } else if (request.url === '/style.css') {
@@ -39,10 +44,11 @@ httpsServer.listen(HTTPS_PORT);
 // ----------------------------------------------------------------------------------------
 
 // Create a server for handling websocket calls
-const wss = new WebSocketServer({ server: httpsServer });
+const wss = new WebSocketServer({ server: httpsServer, host: 'https://aroniasprenovost.github.io/WebRTCdemo/client/' });
 
 wss.on('connection', function (ws) {
   ws.on('message', function (message) {
+
     // Broadcast any received message to all clients
     console.log('received: %s', message);
     wss.broadcast(message);
@@ -59,14 +65,13 @@ wss.broadcast = function (data) {
   });
 };
 
-console.log('Server running.'
-);
+console.log('Server running ' + HTTPS_PORT);
 
 // ----------------------------------------------------------------------------------------
 
 // Separate server to redirect from http to https
 http.createServer(function (req, res) {
-    console.log(req.headers['host']+req.url);
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
+  console.log(req.headers['host'] + req.url);
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
 }).listen(HTTP_PORT);
