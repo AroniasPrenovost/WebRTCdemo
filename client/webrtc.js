@@ -45,7 +45,13 @@ function start() {
 
       // set up websocket and message all existing clients
       .then(() => {
+       
+        console.log(window.location.hostname); 
+      
         serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
+     
+        console.log(serverConnection); 
+      
         serverConnection.onmessage = gotMessageFromServer;
         serverConnection.onopen = event => {
           serverConnection.send(JSON.stringify({ 'displayName': localDisplayName, 'uuid': localUuid, 'dest': 'all' }));
