@@ -44,7 +44,7 @@ httpsServer.listen(HTTPS_PORT);
 // ----------------------------------------------------------------------------------------
 
 // Create a server for handling websocket calls
-const wss = new WebSocketServer({ server: httpsServer, host: 'https://aroniasprenovost.github.io/WebRTCdemo/client/' });
+const wss = new WebSocketServer({ server: httpsServer });
 
 wss.on('connection', function (ws) {
   ws.on('message', function (message) {
